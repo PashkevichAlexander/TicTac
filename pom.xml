@@ -8,5 +8,17 @@
     <artifactId>TicTac2</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <target>16</target>
+                    <source>16</source>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

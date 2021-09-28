@@ -1,13 +1,18 @@
-package Package1;
+package app;
+
+import entity.GameState;
+import entity.SavedPosition;
+import service.PositionOnTheGameBoard;
+import service.Print_gameBoard;
+import service.TicTacService;
 
 import java.util.*;
 
 public class Main {
-    static ArrayList<Integer> playerPositions = new ArrayList<Integer>();
-    static ArrayList<Integer> cpuPositions = new ArrayList<Integer>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        TicTacService service =new TicTacService();
         char[][] gameBoard = {{' ', '|', ' ', '|', ' '},
                 {'-', '+', '-', '+', '-'},
                 {' ', '|', ' ', '|', ' '},
@@ -17,28 +22,25 @@ public class Main {
         while (true) {
             System.out.println("Vvedite your placement 1-9 :");
             int num = sc.nextInt();
-            while (playerPositions.contains(num) || cpuPositions.contains(num)) {
+            while (SavedPosition.playerPositions.contains(num) || SavedPosition.cpuPositions.contains(num)) {
                 System.out.println("Position taken! Enter a correct Position");
                 num = sc.nextInt();
             }
             System.out.println("Your place is: " + num);
-            PlacePiece.placePiece(gameBoard, num, "player");
-            String result = CheckWinner.checkWinner( playerPositions, cpuPositions);
-            if (result.length() > 0) {
-                System.out.println(result);
-                break;
-            }
+            PositionOnTheGameBoard.installerOnPosition(gameBoard, num, "player");
             Random rand = new Random();
             int cpuNum = rand.nextInt(9) + 1;
-            while (playerPositions.contains(cpuNum) || cpuPositions.contains(cpuNum)) {
+            while (SavedPosition.playerPositions.contains(cpuNum) || SavedPosition.cpuPositions.contains(cpuNum)) {
                 cpuNum = rand.nextInt(9) + 1;
             }
-            PlacePiece.placePiece(gameBoard, cpuNum, "cpu");
+            PositionOnTheGameBoard.installerOnPosition(gameBoard, cpuNum, "cpu");
             Print_gameBoard.Print_Game_Board(gameBoard);
-            result = CheckWinner.checkWinner(playerPositions, cpuPositions);
-            if (result.length() > 0) {
-            System.out.println(result);
-            break;
+            GameState result1 = service.checkWinner(SavedPosition.playerPositions, SavedPosition.cpuPositions);
+            GameState result = service.checkWinner( SavedPosition.playerPositions, SavedPosition.cpuPositions);
+
+            if (!result.equals(GameState.CONTINUE)) {
+                System.out.println(result);
+                return;
             }
         }
     }
