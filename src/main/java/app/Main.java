@@ -2,17 +2,17 @@ package app;
 
 import entity.GameState;
 import entity.SavedPosition;
-import service.PositionOnTheGameBoard;
+import service.SetPosition;
 import service.Print_gameBoard;
 import service.TicTacService;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args, int cpuNum) {
         Scanner sc = new Scanner(System.in);
-        TicTacService service =new TicTacService();
+        TicTacService service = new TicTacService();
         char[][] gameBoard = {{' ', '|', ' ', '|', ' '},
                 {'-', '+', '-', '+', '-'},
                 {' ', '|', ' ', '|', ' '},
@@ -27,16 +27,12 @@ public class Main {
                 num = sc.nextInt();
             }
             System.out.println("Your place is: " + num);
-            PositionOnTheGameBoard.installerOnPosition(gameBoard, num, "player");
-            Random rand = new Random();
-            int cpuNum = rand.nextInt(9) + 1;
-            while (SavedPosition.playerPositions.contains(cpuNum) || SavedPosition.cpuPositions.contains(cpuNum)) {
-                cpuNum = rand.nextInt(9) + 1;
-            }
-            PositionOnTheGameBoard.installerOnPosition(gameBoard, cpuNum, "cpu");
+            SetPosition.installerOnPosition(gameBoard, num, "player");
+
+
+            SetPosition.installerOnPosition(gameBoard, cpuNum, "cpu");
             Print_gameBoard.Print_Game_Board(gameBoard);
-            GameState result1 = service.checkWinner(SavedPosition.playerPositions, SavedPosition.cpuPositions);
-            GameState result = service.checkWinner( SavedPosition.playerPositions, SavedPosition.cpuPositions);
+            GameState result = service.checkWinner(SavedPosition.playerPositions, SavedPosition.cpuPositions);
 
             if (!result.equals(GameState.CONTINUE)) {
                 System.out.println(result);

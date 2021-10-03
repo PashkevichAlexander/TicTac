@@ -16,8 +16,8 @@ public class WinnerCombination {
         List<Integer> midCol = Arrays.asList(2, 5, 8);
         List<Integer> rightCol = Arrays.asList(3, 6, 9);
 
-        List<Integer> cross1 = Arrays.asList(1, 5, 9);
-        List<Integer> cross2 = Arrays.asList(7, 5, 3);
+        List<Integer> mainDiagonal = Arrays.asList(1, 5, 9);
+        List<Integer> sideDiagonal = Arrays.asList(7, 5, 3);
 
         winnerCombination = new ArrayList<>();
 
@@ -27,8 +27,8 @@ public class WinnerCombination {
         winnerCombination.add(leftCol);
         winnerCombination.add(midCol);
         winnerCombination.add(rightCol);
-        winnerCombination.add(cross1);
-        winnerCombination.add(cross2);
+        winnerCombination.add(mainDiagonal);
+        winnerCombination.add(sideDiagonal);
     }
 
     public List<List<Integer>> getWinnerCombination() {

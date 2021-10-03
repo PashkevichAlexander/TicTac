@@ -4,7 +4,7 @@ import app.Main;
 import entity.SavedPosition;
 
 
-public class PositionOnTheGameBoard {
+public class SetPosition {
     public static void installerOnPosition(char [][] gameBoard, int num, String User) {
         char symbol = 'X';
         if (User.equals("cpu"))
